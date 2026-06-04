@@ -336,6 +336,127 @@ function renderNextPrize() {
   `;
 }
 
+function renderReport() {
+  const report = document.getElementById('reportCard');
+  if (!report) return;
+
+  const got = obtained.size;
+  const missing = TOTAL - got;
+  const pct = Math.round((got / TOTAL) * 100);
+  const prizesUnlocked = getUnlockedCount();
+  const nextPrize = getClosestPrize();
+
+  const prizeRows = PRIZES.map(p => {
+    const status = getPrizeStatus(p);
+    const label = status.pct === 100 ? 'Desbloqueado' : `${status.pct}% · ${status.missing} faltantes`;
+    const tone = status.pct === 100 ? 'var(--gold)' : status.pct >= 50 ? 'var(--green-light)' : 'rgba(255,255,255,0.55)';
+    return `
+      <div class="report-prize-row">
+        <div>
+          <div class="report-prize-name">${p.icon} ${p.name}</div>
+          <div class="report-prize-range">Figuritas ${p.from} – ${p.to}</div>
+        </div>
+        <div class="report-prize-status" style="color:${tone};">${label}</div>
+      </div>
+    `;
+  }).join('');
+
+  const nextHtml = nextPrize ? `
+    <div class="report-next-title">Próximo premio más cercano</div>
+    <div class="report-next-card">
+      <div class="report-next-row">
+        <div class="report-next-icon">${nextPrize.icon}</div>
+        <div>
+          <div class="report-next-name">${nextPrize.name}</div>
+          <div class="report-next-sub">Figuritas ${nextPrize.from} – ${nextPrize.to}</div>
+        </div>
+      </div>
+      <div class="report-progress">
+        <div class="report-progress-fill" style="width:${getPrizeStatus(nextPrize).pct}%"></div>
+      </div>
+    </div>
+  ` : `
+    <div class="report-next-title">¡Álbum completado! Todos los premios desbloqueados.</div>
+  `;
+
+  report.innerHTML = `
+    <div class="report-header">
+      <div>
+        <div class="report-title">Informe de progreso</div>
+        <div class="report-subtitle">Álbum Mundial · ${new Date().toLocaleDateString()}</div>
+      </div>
+      <div class="report-overview">
+        <div class="report-overview-line">Figuritas: ${got}/${TOTAL}</div>
+        <div class="report-overview-line">Completado: ${pct}%</div>
+        <div class="report-overview-line">Premios: ${prizesUnlocked}/12</div>
+      </div>
+    </div>
+    <div class="report-metrics">
+      <div class="report-metric"><label>Obtenidas</label><strong>${got}</strong></div>
+      <div class="report-metric"><label>Faltantes</label><strong>${missing}</strong></div>
+      <div class="report-metric"><label>Completado</label><strong>${pct}%</strong></div>
+      <div class="report-metric"><label>Premios desbloqueados</label><strong>${prizesUnlocked}/12</strong></div>
+    </div>
+    <div class="report-next">${nextHtml}</div>
+    <div class="report-prize-list">${prizeRows}</div>
+  `;
+}
+
+function downloadBlob(blob, filename) {
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+}
+
+function exportReportImage() {
+  const report = document.getElementById('reportCard');
+  if (!report || !window.html2canvas) return;
+
+  report.style.display = 'block';
+  renderReport();
+
+  html2canvas(report, { scale: 2, backgroundColor: '#050f0a' }).then(canvas => {
+    canvas.toBlob(blob => {
+      if (blob) {
+        downloadBlob(blob, 'informe_album.png');
+        showToast('Imagen descargada correctamente');
+      }
+      report.style.display = 'none';
+    }, 'image/png');
+  }).catch((error) => {
+    console.error(error);
+    report.style.display = 'none';
+    showToast('Error al generar la imagen');
+  });
+}
+
+function exportReportPDF() {
+  const report = document.getElementById('reportCard');
+  if (!report || !window.html2canvas || !window.jspdf) return;
+
+  report.style.display = 'block';
+  renderReport();
+
+  html2canvas(report, { scale: 2, backgroundColor: '#050f0a' }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new window.jspdf.jsPDF('p', 'pt', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('informe_album.pdf');
+    report.style.display = 'none';
+    showToast('PDF descargado correctamente');
+  }).catch((error) => {
+    console.error(error);
+    report.style.display = 'none';
+    showToast('Error al generar el PDF');
+  });
+}
+
 // ============================================
 // ACTUALIZAR TODO EL UI
 // ============================================
@@ -511,6 +632,8 @@ function init() {
   document.getElementById('btnMarkPage').addEventListener('click', markPage);
   document.getElementById('btnMarkAll').addEventListener('click', markAll);
   document.getElementById('btnReset').addEventListener('click', openModal);
+  document.getElementById('btnExportImage').addEventListener('click', exportReportImage);
+  document.getElementById('btnExportPDF').addEventListener('click', exportReportPDF);
 
   // ----- MODAL -----
   document.getElementById('btnCancelReset').addEventListener('click', closeModal);

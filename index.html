@@ -135,12 +135,20 @@
           </div>
         </div>
         <div class="next-prize-card" id="nextPrizeCard"></div>
+        <div class="export-actions">
+          <button class="action-btn" id="btnExportImage">🖼️ Exportar imagen</button>
+          <button class="action-btn" id="btnExportPDF">📄 Exportar PDF</button>
+        </div>
         <div class="premios-grid" id="statsPreview"></div>
       </section>
 
     </main>
   </div>
 
+  <div id="reportCard" class="report-card" aria-hidden="true"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

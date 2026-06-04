@@ -873,6 +873,162 @@ body::after {
   }
 }
 
+.export-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.report-card {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 900px;
+  max-width: 900px;
+  padding: 24px;
+  background: #0d1a12;
+  color: #fff;
+  border-radius: 24px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.report-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 34px;
+  letter-spacing: 2px;
+}
+
+.report-subtitle,
+.report-overview-line {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+}
+
+.report-overview {
+  display: grid;
+  gap: 6px;
+  text-align: right;
+}
+
+.report-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.report-metric {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.report-metric label {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.report-metric strong {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.report-next-title {
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.report-next-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.report-next-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.report-next-icon {
+  font-size: 30px;
+  width: 48px;
+  text-align: center;
+}
+
+.report-next-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.report-next-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.report-progress {
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.report-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-dark), var(--green-light));
+}
+
+.report-prize-list {
+  display: grid;
+  gap: 10px;
+}
+
+.report-prize-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.report-prize-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.report-prize-range {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 4px;
+}
+
+.report-prize-status {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+}
+
 /* ============================================
    SCROLLBAR PERSONALIZADO
    ============================================ */

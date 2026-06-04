@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum Mundial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOAST DE DESBLOQUEO -->
+  <div class="unlock-toast" id="unlockToast"></div>
+
+  <!-- MODAL DE CONFIRMACIÓN -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <div class="modal-title">⚠️ Reiniciar Álbum</div>
+      <div class="modal-text">¿Seguro que quieres borrar todo tu progreso? Esta acción no se puede deshacer.</div>
+      <div class="modal-btns">
+        <button class="modal-btn modal-cancel" id="btnCancelReset">Cancelar</button>
+        <button class="modal-btn modal-confirm" id="btnConfirmReset">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT PRINCIPAL -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">⚽ Álbum Mundial</div>
+        <button class="sidebar-close" id="btnSidebarClose">✕</button>
+      </div>
+
+      <div class="sidebar-progress">
+        <div class="sp-numbers">
+          <span id="sbObtained">0</span>
+          <span class="sp-sep">/</span>
+          <span>387</span>
+        </div>
+        <div class="sp-bar-wrap">
+          <div class="sp-bar-fill" id="sbProgressBar"></div>
+        </div>
+        <div class="sp-pct" id="sbPct">0% completado</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-label">Páginas</div>
+        <ul id="pageNav"></ul>
+      </nav>
+
+      <div class="sidebar-tabs">
+        <div class="nav-label">Secciones</div>
+        <button class="stab active" data-tab="figuritas">⚽ Figuritas</button>
+        <button class="stab" data-tab="premios">🏆 Premios</button>
+        <button class="stab" data-tab="stats">📊 Stats</button>
+      </div>
+    </aside>
+
+    <!-- OVERLAY MÓVIL -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main">
+
+      <!-- TOPBAR MÓVIL -->
+      <div class="topbar">
+        <button class="menu-btn" id="btnMenuOpen">☰</button>
+        <div class="topbar-title">⚽ Álbum Mundial</div>
+        <div class="topbar-pct" id="topbarPct">0%</div>
+      </div>
+
+      <!-- SECCIÓN: FIGURITAS -->
+      <section class="section active" id="sec-figuritas">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" id="pageTitle">Figuritas 1 – 50</h2>
+            <p class="section-sub" id="pageSubtitle">Página 1 de 8</p>
+          </div>
+          <div class="header-actions">
+            <input class="search-input" type="number" placeholder="Buscar #…" min="1" max="387" id="searchInput">
+            <div class="filter-group">
+              <button class="filter-btn active" data-filter="all">Todas</button>
+              <button class="filter-btn" data-filter="obtained">✅ Tengo</button>
+              <button class="filter-btn" data-filter="missing">❌ Faltan</button>
+            </div>
+          </div>
+        </div>
+        <div class="action-btns">
+          <button class="action-btn" id="btnMarkPage">✅ Marcar página</button>
+          <button class="action-btn" id="btnMarkAll">✅ Marcar todas</button>
+          <button class="action-btn danger" id="btnReset">🗑 Reiniciar</button>
+        </div>
+        <div class="stickers-grid" id="stickersGrid"></div>
+        <div class="no-results" id="noResults">No se encontraron figuritas</div>
+        <div class="page-nav-btns">
+          <button class="page-nav-btn" id="btnPrevPage">← Anterior</button>
+          <span class="page-indicator" id="pageIndicator">1 / 8</span>
+          <button class="page-nav-btn" id="btnNextPage">Siguiente →</button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN: PREMIOS -->
+      <section class="section" id="sec-premios">
+        <div class="section-header">
+          <h2 class="section-title">Premios</h2>
+        </div>
+        <div class="premios-grid" id="premiosGrid"></div>
+      </section>
+
+      <!-- SECCIÓN: STATS -->
+      <section class="section" id="sec-stats">
+        <div class="section-header">
+          <h2 class="section-title">Estadísticas</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Obtenidas</div>
+            <div class="stat-value stat-green" id="statObtained">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Faltantes</div>
+            <div class="stat-value stat-red" id="statMissing">387</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Completado</div>
+            <div class="stat-value stat-gold" id="statPct">0%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Premios</div>
+            <div class="stat-value stat-white" id="statPrizes">0 / 12</div>
+          </div>
+        </div>
+        <div class="next-prize-card" id="nextPrizeCard"></div>
+        <div class="premios-grid" id="statsPreview"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

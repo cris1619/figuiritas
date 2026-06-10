@@ -47,6 +47,126 @@ body::before {
   pointer-events: none;
 }
 
+/* ===== APK BANNER ===== */
+
+.apk-banner{
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 24px;
+  border-radius: 24px;
+  background: linear-gradient(135deg,#111827,#1f2937,#0f172a);
+  border: 2px solid rgba(255,255,255,.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  overflow: hidden;
+  position: relative;
+}
+
+.apk-banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at top right,
+    rgba(255,215,0,.15),
+    transparent 35%);
+  pointer-events:none;
+}
+
+.apk-content{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.apk-icon{
+  font-size:70px;
+  flex-shrink:0;
+}
+
+.apk-info{
+  flex:1;
+  min-width:260px;
+}
+
+.apk-info h2{
+  color:#fff;
+  font-size:2rem;
+  margin-bottom:10px;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:1px;
+}
+
+.apk-info p{
+  color:#cbd5e1;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+.apk-features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.apk-features span{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  padding:8px 14px;
+  border-radius:999px;
+  color:#fff;
+  font-size:.9rem;
+}
+
+.apk-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.apk-btn{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  text-decoration:none;
+  padding:16px 28px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:1rem;
+  transition:.25s;
+  box-shadow:0 8px 20px rgba(34,197,94,.35);
+}
+
+.apk-btn:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 12px 24px rgba(34,197,94,.45);
+}
+
+.apk-version{
+  color:#94a3b8;
+  font-size:.9rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+  .apk-content{
+    text-align:center;
+    justify-content:center;
+  }
+
+  .apk-actions{
+    width:100%;
+  }
+
+  .apk-btn{
+    width:100%;
+    text-align:center;
+  }
+
+}
+
 body::after {
   content: '';
   position: fixed;
